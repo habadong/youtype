@@ -8,16 +8,38 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import MainScreen from './src/MainScreen';
 import LoginScreen from './src/LoginScreen';
-import RecipeScreen from './src/RecipeTap/RecipeScreen';
+import MemoScreen from './src/MemoTap/MemoScreen';
+import MemoDetailScreen from './src/MemoTap/MemoDetailScreen'
+import MemoNewScreen from './src/MemoTap/MemoNewScreen'
 import NoticeScreen from './src/NoticeTap/NoticeScreen';
-
-const Stack = createNativeStackNavigator();
 
 const googleSigninConfigure = () => {
   GoogleSignin.configure({
     webClientId: '192568046883-uofeokcv2kg0r0m07frg12lshoesldaa.apps.googleusercontent.com',
   });
 };
+
+const MemoStack = createNativeStackNavigator();
+
+const MemoStackScreen = () => {
+  return (
+    <MemoStack.Navigator>
+      <MemoStack.Screen name="memo" component={MemoScreen} />
+      <MemoStack.Screen name="detail" component={MemoDetailScreen} />
+      <MemoStack.Screen name="new" component={MemoNewScreen} />
+    </MemoStack.Navigator>
+  )
+}
+
+const NoticeStack = createNativeStackNavigator();
+
+const NoticeStackScreen = () => {
+  return (
+    <NoticeStack.Navigator>
+      <NoticeStack.Screen name="notice" component={NoticeScreen} />
+    </NoticeStack.Navigator>
+  )
+}
 
 const Tab = createBottomTabNavigator();
 
@@ -50,9 +72,9 @@ const App = () => {
           tabBarIcon: ({focused, color, size}) => {
             let iconName
 
-            if(route.name == 'Recipe') {
+            if(route.name == '메모') {
               iconName = focused ? 'book' : 'book-outline'
-            } else if(route.name == 'Notice') {
+            } else if(route.name == '알림') {
               iconName = focused ? 'notifications' : 'notifications-outline'
             }
             return <Ionicons name={iconName} size={size} color={color} />
@@ -60,8 +82,8 @@ const App = () => {
           tabBarActiveTintColor: 'purple',
           tabBarInactiveTintColor: 'gray',
         })}>
-          <Tab.Screen name="Recipe" component={RecipeScreen} />
-          <Tab.Screen name="Notice" component={NoticeScreen} />
+          <Tab.Screen name="메모" component={MemoStackScreen} options={{headerShown:false}}/>
+          <Tab.Screen name="알림" component={NoticeStackScreen} options={{headerShown:false}}/>
         </Tab.Navigator>
       </NavigationContainer>
     );
