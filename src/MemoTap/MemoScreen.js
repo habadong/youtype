@@ -2,6 +2,7 @@ import React from 'react'
 import { View, Text, StyleSheet, SafeAreaView, FlatList } from 'react-native'
 import MemoRenderItem from '../Components/MemoRenderItem'
 import MemoListHeader from '../Components/MemoListHeader'
+import { widthPercentage, heightPercentage, fontPercentage } from '../Functions/ResponsiveSize'
 
 const DATA = [
   {
@@ -38,14 +39,13 @@ export default function MemoScreen({ navigation }) {
 
     return (
         <SafeAreaView style={styles.backgroundStyle}>
-            <View style={styles.container}>
-              <FlatList
-                data={DATA}
-                renderItem={memoRender}
-                keyExtractor={item => item.id}
-                ListHeaderComponent={listHeader}
-              />
-            </View>
+            <FlatList
+              data={DATA}
+              renderItem={memoRender}
+              keyExtractor={item => item.id}
+              ListHeaderComponent={listHeader}
+              contentContainerStyle={{paddingTop: heightPercentage(0.2)}}
+            />
         </SafeAreaView>
     )
 }
@@ -53,35 +53,6 @@ export default function MemoScreen({ navigation }) {
 const styles = StyleSheet.create({
     backgroundStyle: {
       flex: 1,
-    },
-    container: {
-      // backgroundColor: 'green',
-      flex: 1,
-    },
-    innerTopContainer: {
-      // backgroundColor: 'blue',
-      flex: 3,
-      justifyContent: 'center',
-      alignItems: 'center',
-    },
-    innerMiddleContainer: {
-      // backgroundColor: 'red',
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-    },
-    innerBottomContainer: {
-      // backgroundColor: 'gray',
-      flex: 2,
-      justifyContent: 'center',
-      alignItems: 'center',
-    },
-    loginButton: {
-      backgroundColor: 'red',
-      justifyContent: 'center',
-      alignItems: 'center',
-      width: 250,
-      height: 40,
-      borderRadius: 20,
+      paddingHorizontal: widthPercentage(0.3)
     },
 });
