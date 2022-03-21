@@ -16,10 +16,13 @@ export default function MemoRenderItem({ itemId, title, content, img, navigation
                 <Text style={styles.content}>{content}</Text>
             </View>
             <View>
-                <Image 
-                    style={styles.img} 
-                    source={{uri: img}} 
-                    defaultSource={{uri: 'https://cms-assets.tutsplus.com/uploads/users/1199/posts/30670/preview_image/react.jpg'}} />
+                {img ? (
+                    <Image 
+                        style={styles.img} 
+                        source={{uri: img}} />
+                ) : (
+                    <View style={styles.img}/>
+                )}
             </View>
         </Pressable>
     )
@@ -29,15 +32,17 @@ const styles = StyleSheet.create({
     memoCard: {
       flex: 1,
       flexDirection: 'row',
+      justifyContent: 'space-between',
       backgroundColor: 'white',
+
       borderRadius: 12,
       marginBottom: heightPercentage(0.2),
-      paddingHorizontal: widthPercentage(0.3),
+      paddingRight: widthPercentage(0.8),
+      paddingLeft: widthPercentage(0.3),
       paddingVertical: heightPercentage(0.1),
     },
     memoCardLeft: {
         flex: 3
-
     },
     title: {
         fontSize: fontPercentage(15)

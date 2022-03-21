@@ -28,6 +28,7 @@ const DATA = [
     id: 4,
     title: '4th memo',
     content: 'this is 4th memo card',
+    img: ''
   },
 ]
 
