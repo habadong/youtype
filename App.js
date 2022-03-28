@@ -9,8 +9,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import MainScreen from './src/MainScreen';
 import LoginScreen from './src/LoginScreen';
 import MemoScreen from './src/MemoTap/MemoScreen';
-import MemoDetailScreen from './src/MemoTap/MemoDetailScreen'
-import MemoNewScreen from './src/MemoTap/MemoNewScreen'
+import MemoWriteScreen from './src/MemoTap/MemoWriteScreen'
 import NoticeScreen from './src/NoticeTap/NoticeScreen';
 
 const googleSigninConfigure = () => {
@@ -25,8 +24,7 @@ const MemoStackScreen = () => {
   return (
     <MemoStack.Navigator>
       <MemoStack.Screen name="memo" component={MemoScreen} />
-      <MemoStack.Screen name="detail" component={MemoDetailScreen} />
-      <MemoStack.Screen name="new" component={MemoNewScreen} />
+      <MemoStack.Screen name="write" component={MemoWriteScreen} />
     </MemoStack.Navigator>
   )
 }

@@ -8,7 +8,7 @@ export default function MemoListHeader({ navigation }) {
         <Pressable 
             style={styles.memoCard}
             onPress={() => {
-                navigation.navigate("new")
+                navigation.navigate("write")
             }}>
             <Ionicons name="add-circle-outline" size={widthPercentage(0.7)} color="black"/>
         </Pressable>

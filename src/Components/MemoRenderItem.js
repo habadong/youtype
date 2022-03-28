@@ -2,18 +2,21 @@ import React from 'react'
 import { View, Text, StyleSheet, Pressable, Image } from 'react-native'
 import { widthPercentage, heightPercentage, fontPercentage } from '../Functions/ResponsiveSize'
 
-export default function MemoRenderItem({ itemId, title, content, img, navigation }) {
+export default function MemoRenderItem({ itemId, title, mainText, img, navigation }) {
     return (
         <Pressable 
             style={styles.memoCard}
             onPress={() => {
-                navigation.navigate("detail", {
-                    itemId: itemId
+                navigation.navigate("write", {
+                    itemId: itemId,
+                    title: title,
+                    mainText: mainText,
+                    img: img,
                 })
             }}>
             <View>
                 <Text style={styles.title}>{title}</Text>
-                <Text style={styles.content}>{content}</Text>
+                <Text style={styles.mainText}>{mainText}</Text>
             </View>
             <View>
                 {img ? (
@@ -47,7 +50,7 @@ const styles = StyleSheet.create({
     title: {
         fontSize: fontPercentage(15)
     },
-    content: {
+    mainText: {
         fontSize: fontPercentage(10)
     },
     memoCardRight: {
