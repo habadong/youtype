@@ -1,5 +1,5 @@
 import React, { useState, useLayoutEffect, useEffect } from 'react'
-import { View, Text, SafeAreaView, StyleSheet, ScrollView, TextInput, Pressable } from 'react-native'
+import { View, Text, SafeAreaView, StyleSheet, ScrollView, TextInput, Pressable, FlatList, ImageBackground } from 'react-native'
 import { widthPercentage, heightPercentage, fontPercentage } from '../Functions/ResponsiveSize'
 import firestore from '@react-native-firebase/firestore';
 
@@ -7,7 +7,13 @@ export default function MemoWriteScreen({ navigation, route }) {
     const {itemId} = route.params
     const [title, setTitle] = useState(route.params.title)
     const [mainText, setMainText] = useState(route.params.mainText)
-    const [attachment, setAttachment] = useState('')
+    const [attachment, setAttachment] = useState([
+        'https://img.piku.co.kr/w/uploads/5u2qx2/003ae4c2caa72e35c31d6bf6f57290f8.jpg',
+        'https://img.piku.co.kr/w/uploads/5u2qx2/94abd2654f8b9b23a65f08b15c39b821.jpg',
+        'https://img.piku.co.kr/w/uploads/5u2qx2/003ae4c2caa72e35c31d6bf6f57290f8.jpg',
+        'https://img.piku.co.kr/w/uploads/5u2qx2/003ae4c2caa72e35c31d6bf6f57290f8.jpg',
+        'https://img.piku.co.kr/w/uploads/5u2qx2/003ae4c2caa72e35c31d6bf6f57290f8.jpg',
+    ])
     const [save, setSave] = useState(false)
 
     const ref = firestore().collection('memos')
@@ -20,6 +26,29 @@ export default function MemoWriteScreen({ navigation, route }) {
         });
 
         navigation.goBack()
+    }
+
+    const renderItemAttachment = ({item}) => {
+        return (
+            <Pressable
+                style={styles.attachmentButton}
+                onPress={() => console.log(item)}>
+                <ImageBackground
+                    style={styles.image}
+                    imageStyle={{borderRadius: 12}}
+                    source={{uri: item}}/>
+            </Pressable>
+        )
+    }
+
+    const ListHeaderAttachment = () => {
+        return (
+            <Pressable
+                style={styles.attachmentButton}
+                onPress={() => {}}>
+                <Text style={styles.attachmentText}>첨부파일 넣기</Text>
+            </Pressable>
+        )
     }
 
     useLayoutEffect(() => {
@@ -73,11 +102,14 @@ export default function MemoWriteScreen({ navigation, route }) {
             </ScrollView>
             <View style={styles.bottomContainer}>
                 <View style={styles.bottom}>
-                    <Pressable
-                        style={styles.attachmentButton}
-                        onPress={() => {}}>
-                        <Text style={styles.attachmentText}>첨부파일 넣기</Text>
-                    </Pressable>
+                    <FlatList
+                        data={attachment}
+                        renderItem={renderItemAttachment}
+                        contentContainerStyle={styles.attachmentList}
+                        ListHeaderComponent={ListHeaderAttachment}
+                        showsHorizontalScrollIndicator={false}
+                        horizontal={true}
+                    />
                 </View>
             </View>
         </SafeAreaView>
@@ -134,10 +166,21 @@ const styles = StyleSheet.create({
         height: heightPercentage(1.2),
         alignItems: 'center',
         justifyContent: 'center',
+        marginRight: widthPercentage(0.3)
     },
     attachmentText: {
         fontSize: fontPercentage(12),
         color: '#d5d5d5',
+    },
+    image: {
+        flex: 1,
+        width: widthPercentage(2),
+        height: heightPercentage(1.2),
+    },
+    attachmentList: {
+        alignItems: 'center',
+        paddingHorizontal: widthPercentage(0.2),
+
     },
     saveButton: {
         padding: heightPercentage(0.1),
